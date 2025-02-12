@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState, useTransition } from 'react';
-import { useRouter } from 'next/navigation';
 import TagList from '@/components/TagList';
 import { Button, TextInput } from '@mantine/core';
 

@@ -1,17 +1,3 @@
-// import { prisma } from '@/app/prisma/client';
-// import { NextResponse } from 'next/server';
-
-// export async function POST(request: Request) {
-
-//   const data = await request.json();
-//   const tag = await prisma.tag.create({
-//     data: {
-//       name: data.name
-//     },
-//   });
-//   return NextResponse.json(tag);
-// }
-
 import { NextResponse } from 'next/server';
 import { prisma } from '@/app/prisma/client';
 

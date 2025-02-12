@@ -1,8 +1,8 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/app/prisma/client';
 import ArticleAdmin from '@/components/ArticleAdmin';
+import authOptions from '@/utils/auth.options';
 import { Button, Text } from '@mantine/core';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
 import Link from 'next/link';
 import { NextResponse } from 'next/server';
 
@@ -16,7 +16,7 @@ export default async function DashboardArticlesPage() {
 
   // Fetch all articles regardless of published status for admin management
   const articles = await prisma.article.findMany({
-    where: { authorId: session.user.id },
+    where: { authorId: (session as any).user.id },
     include: { tags: true },
     orderBy: { createdAt: 'desc' },
   });

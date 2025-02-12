@@ -52,8 +52,12 @@ export default function AuthPage() {
       } else {
         router.push('/dashboard');
       }
-    } catch (error: any) {
-      alert('Registration failed: ' + error.response?.data?.error || error.message);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        alert('Registration failed: ' + (error.response?.data?.error || error.message));
+      } else {
+        alert('Registration failed: ' + String(error));
+      }
     }
   };
 

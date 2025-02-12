@@ -3,14 +3,16 @@ import SearchBar from '@/components/SearchBar';
 import { prisma } from '../prisma/client';
 import Article from '@/components/Article';
 
-interface PublicPageProps {
-  searchParams: { query?: string };
+type Props = {
+  params: Promise<{
+    query?: string
+  }>
 }
 
-export default async function PublicPage({ searchParams }: PublicPageProps) {
+export default async function PublicPage({ params }: Props) {
   // Retrieve the search query (if any)
-  const params = await searchParams;
-  const query = params.query || '';
+  const resolvedParams = await params;
+  const query = resolvedParams.query || '';
 
   // Fetch published articles filtered by title
   const articles = await prisma.article.findMany({

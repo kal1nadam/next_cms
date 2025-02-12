@@ -1,9 +1,16 @@
 import { prisma } from '@/app/prisma/client';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{
+    id: string
+  }>
+}
+
+export async function GET(req: NextRequest, { params }: Props) {
+  const resolvedParams = await params;
   const article = await prisma.article.findUnique({
-    where: { id: parseInt(params.id, 10) },
+    where: { id: parseInt(resolvedParams.id, 10) },
     include: { tags: true },
   });
   if (!article) {
@@ -12,12 +19,13 @@ export async function GET(request: Request, { params }: { params: { id: string }
   return NextResponse.json(article);
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: Props) {
   console.log('This log appears on the server console');
   const data = await request.json();
+  const resolvedParams = await params;
 
   const article = await prisma.article.update({
-    where: { id: parseInt(params.id, 10) },
+    where: { id: parseInt(resolvedParams.id, 10) },
     data: {
       title: data.title,
       content: data.content,

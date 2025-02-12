@@ -1,7 +1,7 @@
 import { prisma } from '@/app/prisma/client';
-import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth/next';
+import authOptions from '@/utils/auth.options';
 
 export async function POST(request: Request) {
 
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       content: data.content,
       // For simplicity, generate a slug from the title
       slug: data.title.toLowerCase().replace(/ /g, '-'),
-      author: { connect: { id: session.user.id } },
+      author: { connect: { id: (session as any).user.id } },
     },
   });
   return NextResponse.json(article);

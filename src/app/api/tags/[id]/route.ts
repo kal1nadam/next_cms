@@ -1,9 +1,16 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/app/prisma/client';
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{
+    id: string
+  }>
+}
+
+export async function DELETE(req: Request, { params }: Props) {
+  const resolvedParams = await params;
   try {
-    const tagId = parseInt(params.id);
+    const tagId = parseInt(resolvedParams.id);
     
     if (!tagId) {
       return NextResponse.json({ error: 'Tag ID is required' }, { status: 400 });

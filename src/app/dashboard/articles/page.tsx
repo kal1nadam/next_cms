@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { prisma } from '@/app/prisma/client';
 import ArticleAdmin from '@/components/ArticleAdmin';
 import authOptions from '@/utils/auth.options';

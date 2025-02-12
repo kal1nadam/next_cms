@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 
 import SearchBar from '@/components/SearchBar';
 import { prisma } from '../prisma/client';

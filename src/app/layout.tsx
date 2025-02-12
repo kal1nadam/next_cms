@@ -3,6 +3,7 @@ import { MantineProvider } from '@mantine/core';
 import { NavbarMinimalColored } from '@/components/NavbarMinimalColored';
 import '@/app/globals.css'; // Your global styles (if any)
 import '@mantine/core/styles.css';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'My CMS Application',
@@ -16,6 +17,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+       <Script id="ms-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "q8maksh7fc");
+          `}
+         </Script>
+      </head>
       <body>
         {/* Wrap the app in MantineProvider to enable Mantine styles and theme */}
         <MantineProvider>
